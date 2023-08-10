@@ -10,13 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_09_055044) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_10_120948) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
-    t.text "paragraph"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "e_mployees", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "department"
+  end
+
+  create_table "employees_salaries", id: false, force: :cascade do |t|
+    t.integer "salary_id", null: false
+    t.integer "employee_id", null: false
+  end
+
+  create_table "salaries", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "amount"
+    t.integer "employees_id", null: false
+    t.index ["employees_id"], name: "index_salaries_on_employees_id"
+  end
+
+  add_foreign_key "salaries", "employees", column: "employees_id"
 end

@@ -10,12 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_10_120948) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_11_052712) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "articles_employees", id: false, force: :cascade do |t|
+    t.integer "employee_id", null: false
+    t.integer "article_id", null: false
+  end
+
+  create_table "articles_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "article_id", null: false
   end
 
   create_table "e_mployees", force: :cascade do |t|
@@ -35,12 +45,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_120948) do
     t.integer "employee_id", null: false
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "salaries", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "amount"
     t.integer "employees_id", null: false
     t.index ["employees_id"], name: "index_salaries_on_employees_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "city"
   end
 
   add_foreign_key "salaries", "employees", column: "employees_id"
